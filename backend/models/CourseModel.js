@@ -14,10 +14,6 @@ const courseSchema = new mongoose.Schema({
         minLength: [8, "description must be atleast 8 character long"],
         maxLength: [500, "description should be less than 500 character"],
     },
-    createdBy: {
-        type: String,
-        required: true,
-    },
     category: {
         type: String,
         required: [true, "category is required"],
@@ -29,11 +25,11 @@ const courseSchema = new mongoose.Schema({
     thumbnail: {
         public_id: {
             type: String,
-            required: true,
+            default:""
         },
         secure_url: {
             type: String,
-            required: true,
+            default:""
         },
     },
     lectures: [

@@ -5,7 +5,10 @@ import { useDispatch } from "react-redux";
 import { GoBell } from "react-icons/go";
 import { logout } from "../Redux/authSlice"
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 const Navbar = () => {
+    const { userInfo } = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [sideBarOpen, setSidebarOpen] = useState(false);
@@ -68,7 +71,15 @@ const Navbar = () => {
             <div
                 ref={sidebarRef}
                 className={`transition-transform duration-300 ease-in-out transform ${sideBarOpen ? 'translate-x-0' : '-translate-x-full'} fixed top-0 left-0 h-full bg-zinc-900 text-white p-6 w-64 shadow-lg z-50`}>
-                <ul className='flex flex-col gap-4 text-lg'>
+                <ul className='flex flex-col gap-4 cursor-pointer text-lg'>
+                    {
+                        userInfo?.role === "admin" &&
+                        <Link to={"/admin"}>
+                            <li className='hover:bg-zinc-700 p-2 rounded-md'>
+                                Admin Dashboard
+                            </li>
+                        </Link>
+                    }
                     <li className='hover:bg-zinc-700 p-2 rounded-md'>Account</li>
                     <li className='hover:bg-zinc-700 p-2 rounded-md'>My Enrollments</li>
                     <li className='hover:bg-zinc-700 p-2 rounded-md'>Notifications</li>

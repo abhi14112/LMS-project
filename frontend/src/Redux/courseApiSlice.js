@@ -7,7 +7,14 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 method: 'GET',
             }),
         }),
+        createCourse: builder.mutation({
+            query: (newCourse) => ({
+                url: '/course/create',
+                method: 'POST',
+                body: newCourse,
+            }),
+        }),
     }),
 });
 
-export const { useGetAllCoursesQuery } = userApiSlice;
+export const { useGetAllCoursesQuery, useCreateCourseMutation } = userApiSlice;

@@ -6,7 +6,6 @@ const createCourse = async (req, res) => {
         if(courseExists){
             return res.status(400).json({success:false,message:"Course title already exists"});
         }
-
         const newCourse = new Course({
             title,
             description,
