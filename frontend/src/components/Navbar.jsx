@@ -1,8 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaBars } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
+import { useDispatch } from "react-redux";
 import { GoBell } from "react-icons/go";
+import { logout } from "../Redux/authSlice"
+import { useNavigate } from "react-router-dom";
 const Navbar = () => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [sideBarOpen, setSidebarOpen] = useState(false);
     const sidebarRef = useRef(null);
     const avatarButtonRef = useRef(null);
@@ -22,14 +27,18 @@ const Navbar = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+    const handleLogout = () => {
+        dispatch(logout());
+        navigate("/login");
+    }
     return (
         <>
             <div className='bg-gray-900 py-4 md:px-16 px-6 text-white h-max flex justify-between items-center'>
                 <div className='flex gap-3 md:gap-12 items-center'>
                     <div>
-                        <p className='text-3xl font-semibold'>Learn-X</p>
+                        <p className='text-xl md:text-3xl font-semibold'>Learn-X</p>
                     </div>
-                    <div className='flex px-2 items-center border-gray-600 border rounded-md'>
+                    <div className='flex w-[200px] md:w-[400px] px-2 items-center border-gray-600 border rounded-md'>
                         <input
                             type="text"
                             className="appearance-none rounded-md text-xl relative block w-full md:py-2 py-1 bg-transparent outline-none placeholder-gray-400 text-white sm:text-sm"
@@ -56,7 +65,6 @@ const Navbar = () => {
                     </div>
                 </div>
             </div>
-
             <div
                 ref={sidebarRef}
                 className={`transition-transform duration-300 ease-in-out transform ${sideBarOpen ? 'translate-x-0' : '-translate-x-full'} fixed top-0 left-0 h-full bg-zinc-900 text-white p-6 w-64 shadow-lg z-50`}>
@@ -65,7 +73,7 @@ const Navbar = () => {
                     <li className='hover:bg-zinc-700 p-2 rounded-md'>My Enrollments</li>
                     <li className='hover:bg-zinc-700 p-2 rounded-md'>Notifications</li>
                     <li className='hover:bg-zinc-700 p-2 rounded-md'>Favourites</li>
-                    <li className='hover:bg-red-600 p-2 rounded-md'>Logout</li>
+                    <li className='hover:bg-red-600 p-2 rounded-md' onClick={handleLogout}>Logout</li>
                 </ul>
             </div>
             {sideBarOpen && <div className="fixed inset-0 bg-black bg-opacity-50 md:hidden" onClick={() => setSidebarOpen((prev) => !prev)} />}

@@ -22,14 +22,6 @@ const courseSchema = new mongoose.Schema({
         type: String,
         required: [true, "category is required"],
     },
-    price: {
-        type: Number,
-        required: true,
-    },
-    expiry: {
-        type: Number,
-        required: true,
-    },
     numberOfLectures: {
         type: Number,
         default: 0,
