@@ -7,7 +7,9 @@ import { logout } from "../Redux/authSlice"
 import { useNavigate } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import {useLogoutUserMutation} from "../Redux/userApiSlice"
 const Navbar = () => {
+    const [logoutUser] = useLogoutUserMutation();
     const { userInfo } = useSelector((state) => state.auth);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -31,6 +33,7 @@ const Navbar = () => {
         };
     }, []);
     const handleLogout = () => {
+        logoutUser().unwrap();
         dispatch(logout());
         navigate("/login");
     }

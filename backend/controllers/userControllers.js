@@ -2,6 +2,25 @@ import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 
 import generateTokenAndSetCookie from "../utils/tokenAndCookie.js";
+
+const logout = (req, res) => {
+    try {
+        // Clear the JWT cookie by setting an empty cookie with a short expiration time
+        res.cookie('jwt', '', {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            expires: new Date(0),
+            sameSite: 'strict'
+        });
+        return res.status(200).json({ message: 'Successfully logged out' });
+    } catch (error) {
+        console.error('Error during logout:', error.message);
+        return res.status(500).json({ message: 'Logout failed. Please try again later' });
+    }
+};
+
+export { logout };
+
 const login = async (req, res) => {
     const { email, password } = req.body;
 

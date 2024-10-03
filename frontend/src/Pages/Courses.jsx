@@ -9,7 +9,11 @@ const Courses = () => {
     return (<p>Loading...</p>
     )
   }
-  const { courses } = data;
+  let courses;
+  if(data)
+  {
+     courses  = data.courses;
+  }
   return (
     <div className='py-12 px-12 w-full bg-slate-200'>
       <p className='text-2xl font-semibold mb-4'>Courses</p>
@@ -29,7 +33,7 @@ const Courses = () => {
             <div>
 
               {
-                courses.map((course, index) => (<CourseListItem key={index} title={course.title} />))
+                courses?.map((course, index) => (<CourseListItem key={index} title={course.title} />))
               }
             </div>
           </div>

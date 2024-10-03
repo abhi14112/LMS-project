@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../Redux/authSlice';
+import {useLogoutUserMutation} from "../Redux/userApiSlice"
 const Sidebar = () => {
     const dispatch = useDispatch();
+    const [logoutUser] = useLogoutUserMutation();
     const navigate = useNavigate();
     const handleLogout = () => {
+        logoutUser().unwrap();
         dispatch(logout());
         navigate("/login");
     }
